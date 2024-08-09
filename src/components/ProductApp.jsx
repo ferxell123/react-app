@@ -24,7 +24,7 @@ const getProducts = async () => {
   }, []);
 
   const handleAddProduct = (product) => {
-    //ejemplo 2
+    //ejemplo 2 pruebas
     console.log(product);
 
     if (product.id > 0 ) {
