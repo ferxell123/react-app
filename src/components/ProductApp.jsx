@@ -1,6 +1,6 @@
 import { PropTypes } from "prop-types";
 import { useEffect, useState } from "react";
-import { findAll} from "../services/ProductService";
+import { create, findAll, update} from "../services/ProductService";
 import { ProductGrid } from "./ProductGrid";
 import { ProductForm } from "./ProductForm";
 
@@ -23,21 +23,22 @@ const getProducts = async () => {
     getProducts();
   }, []);
 
-  const handleAddProduct = (product) => {
+  const handleAddProduct = async (product) => {
     //ejemplo 2 pruebas
-    console.log(product);
 
     if (product.id > 0 ) {
+      const response =await update(product)
       setProducts(
         products.map((prod) => {
           if (prod.id === product.id) {
-            return { ...product };
+            return { ...response.data };
           }
           return prod;
         })
       );
     } else {
-      setProducts([...products, { ...product, id: new Date().getTime() }]);
+      const response =await create (product)
+      setProducts([...products, { ...response.data }]);
     }
   }
 
